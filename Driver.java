@@ -1,18 +1,31 @@
-public class Driver {
+import java.io.File;
+import java.io.IOException;
 
-		public static void main(String [] args) {
-		
+public class Driver {
+	public static void main(String[] args) {
 	
-		Polynomial p = new Polynomial(); 
-		System.out.println(p.evaluate(3));
-		double [] c1 = {6,0,0,5};
-		Polynomial p1 = new Polynomial(c1);
-		double [] c2 = {0,-2,0,0,-9};
-		Polynomial p2 = new Polynomial(c2); 
-		Polynomial s = p1.add(p2); 
-		System.out.println("s(0.1) = " + s.evaluate(0.1)); if(s.hasRoot(1))
-		System.out.println("1 is a root of s"); 
-		else
-		System.out.println("1 is not a root of s");
-       }
+	        double[] coefficients = {6, -2, 5};
+	        int[] exponents = {0, 1, 3};
+
+	        // Create a Polynomial object using the provided coefficients and exponents
+	        Polynomial polynomial = new Polynomial(coefficients, exponents);
+
+	        // Display the polynomial and evaluate it at x = 2
+	        System.out.println("Polynomial: " + polynomial);
+	        System.out.println("Evaluate at x = 2: " + polynomial.evaluate(2));
+
+	        // Save the polynomial to a file and then read it from the file
+	        polynomial.saveToFile("polynomial.txt");
+
+	        try {
+	            Polynomial polynomialFromFile = new Polynomial(new File("polynomial.txt"));
+	            
+	            System.out.println("Polynomial from file: " + polynomialFromFile);
+	            
+	            System.out.println("Evaluate at x = 3: " + polynomialFromFile.evaluate(3));
+	            
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	   }
 }
